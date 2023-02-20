@@ -6,22 +6,18 @@ const Admin = require('./model/admin');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Flutterwave = require('flutterwave-node-v3');
-
+require('dotenv').config()
+const routeLink = require('./api/route')
 
 app.listen(8080);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-require('dotenv').config()
-  
+app.use('/', routeLink)
 
 mongoose.connect(process.env.DBURL)
 mongoose.set('strictQuery', false);
 
-
-app.get('/', (req, res) =>{
-  res.send('Woooow it worked')
-})
 
 app.post('/user', async(req, res) =>{
 
@@ -67,11 +63,15 @@ app.post('/admin', (req, res) =>{
 })
 })
 
-app.get('/admin', (req, res) =>{
-    Admin.findOne({email: 'techhub@gmail.com'})
-    .then(response =>{
+app.post('/admins', (req, res) =>{
+    Admin.findOne({email: req.body.email})
+     .then(response =>{
         res.send(response)
+        console.log(response);
     })
+
+    console.log(req.body);
+
 })
 
 app.post('/updateaccount', (req, res) =>{
@@ -84,7 +84,6 @@ app.post('/updateaccount', (req, res) =>{
 app.post('/activate', async (req, res) =>{
   const user = await User.findOneAndUpdate({userId: req.body.userId}, {$set: {activated: true}})
   res.send(user);
-  console.log(user)
 })
 
 
@@ -101,10 +100,24 @@ app.get('/payment', (req, res) =>{
     } else {
       console.log('Never1');
       res.send('Not Sucessfull')
-        // Inform the customer their payment was unsuccessful
+        // Inform the their payment was unsuccessful
     }
 }).catch((err) =>{
   console.log(err);
 });
 
+})
+
+app.post('/adminsignin', async (req, res) =>{
+  const user = await Admin.findOne({email: req.body.email});
+
+  if(user){
+    if(user.password === req.body.password){
+      res.json({message: 'success', data: 'Login Successful', response: user})
+    }else{
+      res.json({message: 'error', data: 'User/Password is Invalid'})
+    }
+  }else{
+    res.json({message: 'error', data: 'User/Password is Invalid'})
+  }
 })
