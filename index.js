@@ -12,9 +12,10 @@ app.listen(8080);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+require('dotenv').config()
   
 
-mongoose.connect(`mongodb+srv://honymissy:honymissy1@cluster0.q6yjv.mongodb.net/Perfection`)
+mongoose.connect(process.env.DBURL)
 mongoose.set('strictQuery', false);
 
 
