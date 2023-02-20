@@ -9,7 +9,7 @@ const Flutterwave = require('flutterwave-node-v3');
 require('dotenv').config()
 const routeLink = require('./api/route')
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
