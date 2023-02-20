@@ -121,3 +121,7 @@ app.post('/adminsignin', async (req, res) =>{
     res.json({message: 'error', data: 'User/Password is Invalid'})
   }
 })
+
+app.get('/tester', (req, res) =>{
+  res.send('Tested it')
+})
