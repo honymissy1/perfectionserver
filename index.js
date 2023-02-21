@@ -92,8 +92,8 @@ app.get('/payment', (req, res) =>{
   const flw = new Flutterwave('FLWPUBK_TEST-1a77c9626f9ed7c7af67eec75e44ac7b-X', 'FLWSECK_TEST-8ec03c1ce3563602b5961330f1abe97d-X');
   flw.Transaction.verify({ id: req.query.transaction_id })
   .then((response) => {
-    if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {
-        
+    console.log(response)
+    if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {    
       Admin.findOneAndUpdate({email: response?.data?.email}, {$inc: {accountBalance: response.data.amount}})
       .then(response =>{
         res.redirect('back');
