@@ -94,7 +94,7 @@ app.get('/payment', (req, res) =>{
   .then((response) => {
     if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {
         
-      Admin.findOneAndUpdate({email: response.data.email}, {$inc: {accountBalance: response.data.amount}})
+      Admin.findOneAndUpdate({email: response?.data?.email}, {$inc: {accountBalance: response.data.amount}})
       .then(response =>{
         res.redirect('back');
       })
