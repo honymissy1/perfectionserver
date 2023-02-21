@@ -46,6 +46,7 @@ app.post('/verifyuser', async(req, res) =>{
      if(user.activated){
         res.json({message: 'error', data: 'The account is already activated contact admin for more support'})
      }else{
+        const activate = await User.findOneAndUpdate({userId: req.body.userId}, {$set: {activated: true}});
         res.json({message: 'success', data: 'Successfully Verified'})
      }
    }else{
@@ -53,15 +54,15 @@ app.post('/verifyuser', async(req, res) =>{
    }  
  })
 
-app.post('/admin', (req, res) =>{
-   Admin.create({
-    email: 'techhub@gmail.com',
-    password: '123456',
-    accountBalance: 10000
-   }).then(ele =>{
-    res.send('element added successfully')
-})
-})
+// app.post('/admin', (req, res) =>{
+//    Admin.create({
+//     email: 'techhub@gmail.com',
+//     password: '123456',
+//     accountBalance: 0
+//    }).then(ele =>{
+//     res.send('element added successfully')
+// })
+// })
 
 app.post('/admins', (req, res) =>{
     Admin.findOne({email: req.body.email})
@@ -75,7 +76,7 @@ app.post('/admins', (req, res) =>{
 })
 
 app.post('/updateaccount', (req, res) =>{
-    Admin.findOneAndUpdate({email: 'techhub@gmail.com'}, {$inc: {accountBalance: -1000}})
+    Admin.findOneAndUpdate({email: req.body.email}, {$inc: {accountBalance: -500}})
     .then(response =>{
         res.send(response);
     })
@@ -93,14 +94,12 @@ app.get('/payment', (req, res) =>{
   .then((response) => {
     if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {
         
-      Admin.findOneAndUpdate({email: 'techhub@gmail.com'}, {$inc: {accountBalance: response.data.amount}})
+      Admin.findOneAndUpdate({email: response.data.customer.email}, {$inc: {accountBalance: response.data.amount}})
       .then(response =>{
         res.redirect('back');
       })
     } else {
-      console.log('Never1');
       res.send('Not Sucessfull')
-        // Inform the their payment was unsuccessful
     }
 }).catch((err) =>{
   console.log(err);
@@ -120,8 +119,4 @@ app.post('/adminsignin', async (req, res) =>{
   }else{
     res.json({message: 'error', data: 'User/Password is Invalid'})
   }
-})
-
-app.get('/tester', (req, res) =>{
-  res.send('Tested it')
 })
