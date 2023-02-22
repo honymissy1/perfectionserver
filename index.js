@@ -6,6 +6,7 @@ const Admin = require('./model/admin');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const Flutterwave = require('flutterwave-node-v3');
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const routeLink = require('./api/route')
 
@@ -13,7 +14,8 @@ app.listen(process.env.PORT || 8080);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/', routeLink)
+app.use('/', routeLink);
+app.use(cookieParser())
 
 mongoose.connect(process.env.DBURL)
 mongoose.set('strictQuery', false);
@@ -67,12 +69,9 @@ app.post('/verifyuser', async(req, res) =>{
 app.post('/admins', (req, res) =>{
     Admin.findOne({email: req.body.email})
      .then(response =>{
-        res.send(response)
+        res.json(response)
         console.log(response);
     })
-
-    console.log(req.body);
-
 })
 
 app.post('/updateaccount', (req, res) =>{
@@ -92,10 +91,10 @@ app.get('/payment', (req, res) =>{
   const flw = new Flutterwave('FLWPUBK_TEST-1a77c9626f9ed7c7af67eec75e44ac7b-X', 'FLWSECK_TEST-8ec03c1ce3563602b5961330f1abe97d-X');
   flw.Transaction.verify({ id: req.query.transaction_id })
   .then((response) => {
-    console.log(response)
     if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {    
-      Admin.findOneAndUpdate({email: response?.data?.email}, {$inc: {accountBalance: response.data.amount}})
+      Admin.findOneAndUpdate({email: response?.data?.customer.email}, {$inc: {accountBalance: response.data.amount}})
       .then(response =>{
+        console.log(response);
         res.redirect('back');
       })
     } else {
