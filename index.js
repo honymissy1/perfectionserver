@@ -88,7 +88,7 @@ app.post('/activate', async (req, res) =>{
 
 
 app.get('/payment', (req, res) =>{
-  const flw = new Flutterwave('FLWPUBK_TEST-edcf63b372f8cb290127aa8c11f9f2f3-X', 'FLWSECK_TEST-e21aa5fa421fd053399a5acc993e8926-X');
+  const flw = new Flutterwave('FLWPUBK-17db7720752df7fc23b9e9dbbec997ea-X', 'FLWSECK-02cfa45d355ce556ce898802420d1491-X');
   flw.Transaction.verify({ id: req.query.transaction_id })
   .then((response) => {
     if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {    
