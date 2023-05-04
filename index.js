@@ -7,7 +7,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const Flutterwave = require('flutterwave-node-v3');
 const cookieParser = require('cookie-parser')
-require('dotenv').config()
+require('dotenv').config();
+const fs = require('fs');
+
+const path = require('path');
 const routeLink = require('./api/route')
 
 app.listen(process.env.PORT || 8080);
@@ -118,4 +121,35 @@ app.post('/adminsignin', async (req, res) =>{
   }else{
     res.json({message: 'error', data: 'User/Password is Invalid'})
   }
+})
+
+
+app.get('/clientpayment/:id', (req, res) =>{
+  const filePath = path.join(__dirname, 'manual files', 'to', 'file.pdf');
+  const flw = new Flutterwave('FLWPUBK-17db7720752df7fc23b9e9dbbec997ea-X', 'FLWSECK-02cfa45d355ce556ce898802420d1491-X');
+  flw.Transaction.verify({ id: req.query.transaction_id })
+    .then((response) => {
+      if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {    
+      //  Here we'll send the Json file to the client
+        res.send('')
+      } else {
+        res.send('Not Sucessfull')
+      }
+  }).catch((err) =>{
+    console.log(err);
+  });
+})
+
+app.get('/test', (req, res) =>{
+  const filePath = path.join(__dirname, 'manual files', 'Jan-July-2023.json');
+  console.log(filePath);
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(typeof(data));
+    res.send(data)
+  });
 })
