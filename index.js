@@ -142,14 +142,14 @@ app.get('/clientpayment/:id', (req, res) =>{
 
 app.get('/test', (req, res) =>{
   const filePath = path.join(__dirname, 'manual files', 'Jan-July-2023.json');
-  console.log(filePath);
 
-  fs.readFile(filePath, (err, data) => {
+  fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       return;
     }
-    console.log(typeof(data));
-    res.send(data)
+    const json = JSON.parse(data);
+    console.log(json);
+    res.send(json)
   });
 })
