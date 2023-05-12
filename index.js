@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./model/user')
+const User = require('./model/user');
+const Buyer = require('./model/buyer')
 const app = express();
 const Admin = require('./model/admin');
 const cors = require('cors');
@@ -124,32 +125,27 @@ app.post('/adminsignin', async (req, res) =>{
 })
 
 
-app.get('/clientpayment/:id', (req, res) =>{
-  const filePath = path.join(__dirname, 'manual files', 'to', 'file.pdf');
-  const flw = new Flutterwave('FLWPUBK-17db7720752df7fc23b9e9dbbec997ea-X', 'FLWSECK-02cfa45d355ce556ce898802420d1491-X');
-  flw.Transaction.verify({ id: req.query.transaction_id })
-    .then((response) => {
-      if (response?.data?.status === "successful" && response?.data?.currency === 'NGN') {    
-      //  Here we'll send the Json file to the client
-        res.send('')
-      } else {
-        res.send('Not Sucessfull')
-      }
-  }).catch((err) =>{
-    console.log(err);
-  });
-})
+app.get('/payment/:uniqueId', (req, res) =>{
+  const unique = req.params.uniqueId;
+  const manualId = req.query.manualId;
 
-app.get('/test', (req, res) =>{
-  const filePath = path.join(__dirname, 'manual files', 'Jan-July-2023.json');
+  Buyer.create({
+    manualId: manualId,
+    userId: unique
+  })
 
+  const filePath = path.join(__dirname, 'manual files', `${manualId}.json`);
   fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
     const json = JSON.parse(data);
-    console.log(json);
-    res.send(json)
-  });
+    res.send(json);
+  })
 })
+
+
+// app.get('/test/:uniqueId', (req, res) =>{
+//   const id = req.query.uniqueId;
+//   res.status(200).send({
+//     body: 'It worked',
+//     id: id
+//   })
+// })

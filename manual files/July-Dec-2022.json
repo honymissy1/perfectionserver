@@ -1,0 +1,96 @@
+[
+    {
+        "title": "Sheep in the fold",
+        "memoryVerse": "The Lord is my shephard I shall not want",
+        "meaning": "Sheep fold is a place for santuary, when we enter into the sheep fold of God we are safe",
+        "meaning_list": ["sheeps are kept there", "Sheeps are Safe"],
+        "note": "",
+        "main_text": "Josh 2vs4",
+        "body": [
+            {
+                "header": "How can I be sheparded",
+                "content": [
+                    {
+                    "header": "Through my heart and soul",
+                    "list": []
+                    },
+                    {
+                    "header": "Kingdom service",
+                    "list": ["Why do we go to service, we come to service to service out heart"]
+                    }
+                ]
+            }
+        ]
+    },
+
+
+    {
+        "title": "Sheep in the fold pt 2",
+        "memoryVerse": "The Lord is my shephard I shall not want",
+        "meaning": "Sheep fold is a place for santuary, when we enter into the sheep fold of God we are safe",
+        "meaning_list": ["sheeps are kept there", "Sheeps are Safe"],
+        "note": "",
+        "body": [
+            {
+                "header": "How can I be sheparded (continue)",
+                "content": [
+                    {
+                    "header": "With the purging of God",
+                    "list": []
+                    },
+                    {
+                    "header": "Kingdom service",
+                    "list": ["Why do we go to service, we come to service to service out heart"]
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        "title": "Sheep in the fold part 3",
+        "memoryVerse": "The Lord is my shephard I shall not want",
+        "meaning": "Sheep fold is a place for santuary, when we enter into the sheep fold of God we are safe",
+        "meaning_list": ["sheeps are kept there", "Sheeps are Safe"],
+        "note": "",
+        "body": [
+            {
+                "header": "Can God see me with Grace",
+                "content": [
+                    {
+                    "header": "Maybe",
+                    "list": ["We re not always sure of this answer when we were in the world","I can do all thing now", "Few are in this world that wants wisdom"]
+                    },
+                    {
+                    "header": "Kingdom service",
+                    "list": ["Why do we go to service, we come to service to service out heart"]
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+
+        "title": "",
+        "memoryVerse": "",
+        "meaning": "",
+        "meaning_list": [],
+        "note": "",
+        "body": [
+            {
+                "title": "",
+                "content": [
+                    {
+                    "header": "",
+                    "list": []
+                    },
+                    {
+                    "header": "",
+                    "list": []
+                    }
+                ]
+            }
+        ]
+    }
+]
