@@ -142,10 +142,10 @@ app.get('/payment/:uniqueId', (req, res) =>{
 })
 
 
-// app.get('/test/:uniqueId', (req, res) =>{
-//   const id = req.query.uniqueId;
-//   res.status(200).send({
-//     body: 'It worked',
-//     id: id
-//   })
-// })
+app.get('/test/:uniqueId', (req, res) =>{
+  const id = req.query.uniqueId;
+  res.status(200).send({
+    body: 'It worked',
+    id: id
+  })
+})
