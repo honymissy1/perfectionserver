@@ -19,10 +19,10 @@ route.get('/payment/:uniqueId', (req, res) =>{
          const json = JSON.parse(data);
          res.status(200).send(json);
 
-         Buyer.create({
-          manualId: manualId,
-          userId: unique
-        })
+        //  Buyer.create({
+        //   manualId: manualId,
+        //   userId: unique
+        // })
       }else{
         res.send('Invalid')
       }
