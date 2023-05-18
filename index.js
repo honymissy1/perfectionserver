@@ -19,10 +19,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', routeLink);
-app.use(cookieParser())
+app.use(cookieParser());
+mongoose.set('strictQuery', false);
 
 mongoose.connect(process.env.DBURL)
-// mongoose.set('strictQuery', true);
+mongoose.set('strictQuery', true);
 
 
 app.post('/user', async(req, res) =>{
