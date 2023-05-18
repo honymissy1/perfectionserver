@@ -22,7 +22,7 @@ app.use('/', routeLink);
 app.use(cookieParser())
 
 mongoose.connect(process.env.DBURL)
-mongoose.set('strictQuery', false);
+// mongoose.set('strictQuery', true);
 
 
 app.post('/user', async(req, res) =>{
@@ -137,7 +137,7 @@ app.post('/adminsignin', async (req, res) =>{
 //   const filePath = path.join(__dirname, 'manual files', `${manualId}.json`);
 //   fs.readFile(filePath, 'utf8', (err, data) => {
 //     const json = JSON.parse(data);
-//     res.send(json);
+//     res.status(200).send(json);
 //   })
 // })
 

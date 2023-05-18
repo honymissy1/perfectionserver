@@ -20,7 +20,8 @@
                     }
                 ]
             }
-        ]
+        ],
+        "conclusion": null
     },
 
 
@@ -45,7 +46,8 @@
                     }
                 ]
             }
-        ]
+        ], 
+        "conclusion": null
     },
 
     {
@@ -69,7 +71,8 @@
                     }
                 ]
             }
-        ]
+        ],
+        "conclusion": null
     },
 
     {
@@ -94,6 +97,7 @@
                     }
                 ]
             }
-        ]
+        ],
+        "conclusion": "We know that life is very very beautiful live it well"
     }
 ]
