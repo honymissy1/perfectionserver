@@ -24,7 +24,7 @@ route.get('/payment/:uniqueId', (req, res) =>{
           userId: unique
          })
       }else{
-        res.send('Invalid')
+        res.status(400).send({error: "Invalid..."})
       }
 
     })
