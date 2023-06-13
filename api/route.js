@@ -15,14 +15,13 @@ route.get('/payment/:uniqueId', (req, res) =>{
     const filePath = path.join(__dirname, '..', 'manual files', `${manualId}.json`);
     
     fs.readFile(filePath, 'utf8', (err, data) => {
-      if(data){
-         const json = JSON.parse(data);
-         res.status(200).send(json);
-
-         Buyer.create({
+      if(data){     
+        Buyer.create({
           manualId: manualId,
           userId: unique
-         })
+        })
+        const json = JSON.parse(data);
+        res.status(200).send(json);
       }else{
         res.status(400).send({error: "Invalid..."})
       }
