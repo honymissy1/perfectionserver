@@ -6,7 +6,7 @@ const BuyerSchema = new mongoose.Schema({
     manualId: String
 })
 
-const Buyer = mogoose.model('buyer', BuyerSchema);
+const Buyer = mongoose.model('buyer', BuyerSchema);
 
 
 module.exports = Buyer
