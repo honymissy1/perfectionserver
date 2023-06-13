@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const Buyer = require('../model/buyer')
+const Buyer = require('../model/buyer');
 const route = express.Router();
 const fs = require('fs');
 
