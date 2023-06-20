@@ -62,7 +62,7 @@ route.get('/payment/:uniqueId', (req, res) =>{
    })
 
 
-   route.get('/request', (req, res) =>{
+   route.post('/request', (req, res) =>{
      const {email, suggestion} = req.body;
 
      Suggestion.create({
@@ -71,13 +71,12 @@ route.get('/payment/:uniqueId', (req, res) =>{
      }).then(result =>{
       res.status(200).send({
         message: 'Request Sent Successfully'
-      }).catch(err =>{
+      })
+      }).catch((error) => {
         res.status(400).send({
           message: 'Error in request'
         })
       })
      })
-
-   })
   
 module.exports = route
