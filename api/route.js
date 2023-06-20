@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const Buyer = require('../model/buyer');
+const Suggestion = require('../model/request');
 const route = express.Router();
 const fs = require('fs');
 
@@ -57,6 +58,25 @@ route.get('/payment/:uniqueId', (req, res) =>{
         message: 'You have not paid for the '+manualId+' sunday school manual'
       })
     }
+
+   })
+
+
+   route.get('/request', (req, res) =>{
+     const {email, suggestion} = req.body;
+
+     Suggestion.create({
+      email,
+      suggestion
+     }).then(result =>{
+      res.status(200).send({
+        message: 'Request Sent Successfully'
+      }).catch(err =>{
+        res.status(400).send({
+          message: 'Error in request'
+        })
+      })
+     })
 
    })
   
