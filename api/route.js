@@ -4,6 +4,13 @@ const Buyer = require('../model/buyer');
 const Suggestion = require('../model/request');
 const route = express.Router();
 const fs = require('fs');
+const Admin = require('../model/admin')
+const bodyParser = require('body-parser');
+
+
+route.use(express.json())
+route.use(bodyParser.json());
+
 
 route.get('/', (req, res) =>{
     res.send('coooking')
@@ -19,7 +26,8 @@ route.get('/payment/:uniqueId', (req, res) =>{
       if(data){     
         Buyer.create({
           manualId: manualId,
-          userId: unique
+          userId: unique,
+          createdAt: new Date().toISOString().substring(0, 7)
         }).then(ele =>{
           const json = JSON.parse(data);
           res.status(200).send(json);
@@ -78,5 +86,68 @@ route.get('/payment/:uniqueId', (req, res) =>{
         })
       })
      })
+
+
+     route.get('/buyers', async(req, res) =>{
+
+      try {
+        const total = await Buyer.find();
+        const totalNum = total.length;
+        res.status(200).send({
+          response: totalNum 
+        })
+        
+      } catch (error) {
+        res.status(400).send({response:'Error'})
+      }
+
+     })
+
+
+     route.post('/buyers/:month/:manual', async(req, res) =>{
+      const {month, manual} = req.params;
+
+
+      try {
+        const total = await Buyer.find({createdAt: month, manualId: manual});
+        const totalNum = total.length;
+        res.status(200).send({
+          response: totalNum
+        })
+        
+      } catch (error) {
+        res.status(400).send({response:'Error'})
+      }
+
+     })
+  
+
+     route.get('/buyers/:month', async(req, res) =>{
+      const {month} = req.params;
+
+
+      try {
+        const total = await Buyer.find({createdAt: month});
+        const totalNum = total.length;
+        res.status(200).send({
+          response: totalNum 
+        })
+        
+      } catch (error) {
+        res.status(400).send({response:'Error'})
+      }
+
+     })
+
+     route.post('/password', (req, res) =>{
+      console.log(req.body)
+      Admin.updateOne({email: 'paulabass@gmail.com'}, {$set: {password: req.body.password} })
+       .then(result =>{
+        res.status(200).send({message: 'Password Update Successful'})
+       }).catch(err =>{
+        res.status(400).send({message: 'Error.  .Not updated'}) 
+        })
+     })
+
   
 module.exports = route
