@@ -131,24 +131,6 @@ app.post('/adminsignin', async (req, res) =>{
   }
 })
 
-
-// app.get('/payment/:uniqueId', (req, res) =>{
-//   const unique = req.params.uniqueId;
-//   const manualId = req.query.manualId;
-
-//   Buyer.create({
-//     manualId: manualId,
-//     userId: unique
-//   })
-
-//   const filePath = path.join(__dirname, 'manual files', `${manualId}.json`);
-//   fs.readFile(filePath, 'utf8', (err, data) => {
-//     const json = JSON.parse(data);
-//     res.status(200).send(json);
-//   })
-// })
-
-
 app.get('/test/:uniqueId', (req, res) =>{
   const id = req.query.uniqueId;
   res.status(200).send({
